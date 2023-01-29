@@ -1,9 +1,19 @@
 package org.example.basic;
 
-import com.rabbitmq.client.AMQP;
-
 import java.util.Map;
 
+/**
+ * RabbitMQ交换机类型有fanout、direct、topic、headers。
+ * 1、fanout
+ *      把所有发送到fanout交换器的消息路由到与该交换器绑定的队列中。
+ * 2、direct
+ *      把消息路由到BindingKey和RoutingKey完全匹配的队列中。
+ * 3、topic
+ *      把消息路由到BindingKey和RoutingKey相匹配的队列中。
+ *      BindingKey和RoutingKey为一个点号“.”分隔的字符串(被点号“.”分隔开的每一段
+ *      独立的字符串称为一个单词)。BindingKey中使用“*”和“#”进行模糊匹配，“*”用于
+ *      匹配一个单词，“#”用于匹配零个或多个单词。
+ */
 public class StudyExchange {
 
     /**

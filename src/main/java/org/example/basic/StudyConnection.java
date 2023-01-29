@@ -5,6 +5,10 @@ import com.rabbitmq.client.ConnectionFactory;
 
 import java.net.URI;
 
+/**
+ * Connection用来创建多个Channel实例。Channel实例不能在线程间共享，应用程序
+ * 应该为每个线程开辟一个Channel。
+ */
 public class StudyConnection {
     private static Connection instance;
     private static Connection uriInstance;
@@ -27,6 +31,10 @@ public class StudyConnection {
         return uriInstance;
     }
 
+    /**
+     * 创建Connection。
+     * @return Connection实例。
+     */
     private static Connection getConnection(){
         ConnectionFactory factory = new ConnectionFactory();
         factory.setUsername("guest");
@@ -43,6 +51,10 @@ public class StudyConnection {
         return connection;
     }
 
+    /**
+     * 使用URI创建Connection。
+     * @return 返回Connection实例。
+     */
     private static Connection getConnectionByUri(){
         ConnectionFactory factory = new ConnectionFactory();
         Connection connection = null;
