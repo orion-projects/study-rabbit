@@ -5,9 +5,27 @@ import org.junit.jupiter.api.Test;
 public class StudyExchangeTest {
 
     @Test
-    public void exChangeDeclare(){
-        var channel = StudyChannel.getInstance();
+    public void exchangeDeclareTest(){
+        StudyExchange.exchangeDeclare("wang.chang.sheng", "topic", true, false, false, null);
+    }
 
-       // channel.exchangeDeclare()
+    @Test
+    public void exchangeDeclareNoWaitTest(){
+        StudyExchange.exchangeDeclareNoWait("wcs", "fanout", true, false, false, null);
+    }
+
+    @Test
+    public void exchangeDeclarePassiveTest(){
+        StudyExchange.exchangeDeclarePassive("wcs");
+    }
+
+    @Test
+    public void exchangeDeleteTest(){
+        StudyExchange.exchangeDelete("wang.chang.sheng", false);
+    }
+
+    @Test
+    public void exchangeDeleteNoWaitTest(){
+        StudyExchange.exchangeDeleteNoWait("wcs", false);
     }
 }

@@ -26,7 +26,7 @@ public class StudyExchange {
      * @param internal 是否内置。内置的交换机客户端程序无法直接发送消息到此交换机，只能通过交换机到交换机的方式。
      * @param arguments 结构化参数。
      */
-    public void createExchange(String exchange, String type, boolean durable, boolean autoDelete, boolean internal, Map<String, Object> arguments){
+    public static void exchangeDeclare(String exchange, String type, boolean durable, boolean autoDelete, boolean internal, Map<String, Object> arguments){
         var channel = StudyChannel.getInstance();
         try {
             channel.exchangeDeclare(exchange, type, durable, autoDelete, internal, arguments);
@@ -36,7 +36,7 @@ public class StudyExchange {
     }
 
     /**
-     * 创建交换机。exchangeDeclareNoWait不需要等待服务器创建完成。
+     * 创建交换机。exchangeDeclareNoWait不需要等待服务器创建完成就会返回。
      * @param exchange
      * @param type
      * @param durable
@@ -44,7 +44,7 @@ public class StudyExchange {
      * @param internal
      * @param arguments
      */
-    public void createExchangeNowait(String exchange, String type, boolean durable, boolean autoDelete, boolean internal, Map<String, Object> arguments){
+    public static void exchangeDeclareNoWait(String exchange, String type, boolean durable, boolean autoDelete, boolean internal, Map<String, Object> arguments){
         var channel = StudyChannel.getInstance();
         try {
             channel.exchangeDeclareNoWait(exchange, type, durable, autoDelete, internal, arguments);
@@ -57,16 +57,40 @@ public class StudyExchange {
      * 检测交换机是否存在。存在则正常返回，不存在则抛出异常并关闭channel。
      * @param name 交换机名称。
      */
-    public void createExchangePassive(String name){
+    public static void exchangeDeclarePassive(String name){
         var channel = StudyChannel.getInstance();
         try {
-            channel.exchangeDeclarePassive(name);
+            var result = channel.exchangeDeclarePassive(name);
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public void deleteExchange(String exchange, boolean ifUnused){
+    /**
+     * 删除交换机。
+     * @param exchange 交换机名字。
+     * @param ifUnused 是否在交换机没有使用的情况下删除。
+     */
+    public static void exchangeDelete(String exchange, boolean ifUnused){
+        var channel = StudyChannel.getInstance();
+        try {
+            channel.exchangeDelete(exchange, ifUnused);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
+    /**
+     * 删除交换机。exchangeDeleteNoWait会在删除完成前返回。
+     * @param exchange 交换机名称
+     * @param ifUnused 是否在交换机没有使用的情况下删除。
+     */
+    public static void exchangeDeleteNoWait(String exchange, boolean ifUnused){
+        var channel = StudyChannel.getInstance();
+        try{
+            channel.exchangeDeleteNoWait(exchange, ifUnused);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
