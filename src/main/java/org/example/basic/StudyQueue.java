@@ -30,5 +30,76 @@ public class StudyQueue {
         }
     }
 
+    /**
+     * 创建队列。在队列创建完成前返回。
+     * @param queue
+     * @param durable
+     * @param exclusive
+     * @param autoDelete
+     * @param arguments
+     */
+    public static void queueDeclareNoWait(String queue, boolean durable, boolean exclusive, boolean autoDelete, Map<String, Object> arguments){
+        var channel = StudyChannel.getInstance();
+        try {
+            channel.queueDeclareNoWait(queue, durable, exclusive, autoDelete, arguments);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
+    /**
+     * 检测队列是否存在。如果存在则正常返回，不存在则抛出异常。
+     * @param queue 队列名称。
+     */
+    public static void queueDeclarePassive(String queue){
+        var channel = StudyChannel.getInstance();
+        try {
+            channel.queueDeclarePassive(queue);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 删除队列。
+     * @param queue 队列名称。
+     * @param ifUnused 是否正在使用。
+     * @param ifEmpty 是否为空。
+     */
+    public static void queueDelete(String queue, boolean ifUnused, boolean ifEmpty){
+        var channel = StudyChannel.getInstance();
+        try {
+            channel.queueDelete(queue, ifUnused, ifEmpty);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 删除队列，删除完成前返回。
+     * @param queue
+     * @param ifUnused
+     * @param ifEmpty
+     */
+    public static void queueDeleteNoWait(String queue, boolean ifUnused, boolean ifEmpty){
+        var channel = StudyChannel.getInstance();
+        try {
+            channel.queueDeleteNoWait(queue, ifUnused, ifEmpty);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 清空队列中的内容。
+     * @param queue 队列名称。
+     */
+    public static void queuePurge(String queue){
+        var channel = StudyChannel.getInstance();
+        try {
+            channel.queuePurge(queue);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
