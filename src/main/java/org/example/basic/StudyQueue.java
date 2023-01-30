@@ -3,7 +3,8 @@ package org.example.basic;
 import java.util.Map;
 
 /**
- *
+ * 生产者和消费者都可以声明队列。如果消费者在同一个信道上订阅了另一个队列就无
+ * 法再声明队列。必须先取消订阅，然后将信道置为传输模式之后才能声明队列。
  */
 public class StudyQueue {
 
@@ -20,6 +21,14 @@ public class StudyQueue {
      * @param autoDelete 是否自动删除。至少有一个消费者连接这个队列之后所有与这个队列连接的
      *                   消费者都断开时才会自动删除。
      * @param arguments 队列的一些参数。
+     *                  1、x-message-ttl
+     *                      设置消息的TTL（过期时间），单位是毫秒。
+     *                  2、x-expires
+     *                  3、x-max-length
+     *                  4、x-max-length-bytes
+     *                  5、x-dead-letter-exchange
+     *                  6、x-dead-letter-routing-key
+     *                  7、x-max-priority
      */
     public static void queueDeclare(String queue, boolean durable, boolean exclusive, boolean autoDelete, Map<String, Object> arguments){
         var channel = StudyChannel.getInstance();
@@ -77,9 +86,9 @@ public class StudyQueue {
 
     /**
      * 删除队列，删除完成前返回。
-     * @param queue
-     * @param ifUnused
-     * @param ifEmpty
+     * @param queue 队列名称。
+     * @param ifUnused 是否正在使用。
+     * @param ifEmpty 是否为空。
      */
     public static void queueDeleteNoWait(String queue, boolean ifUnused, boolean ifEmpty){
         var channel = StudyChannel.getInstance();

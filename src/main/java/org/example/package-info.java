@@ -1,4 +1,14 @@
 package org.example;
+/**
+ * 概念：
+ * Producer：生产者。生产消息的一方。
+ * Consumer：消费者。接收消息的一方。
+ * Broker：消息中间件的服务节点。
+ * Queue：队列。RabbitMQ的内部对象，用于存储消息。
+ * Exchange：交换器。
+ * RoutingKey：路由键。用于指定消息的路由规则。
+ * Binding：绑定。RabbitMQ通过RoutingKey将交换机与队列进行绑定。
+ */
 
 /**
  * rabbitMQ常用命令:
@@ -25,4 +35,20 @@ package org.example;
  * 8、如果没有找到则根据生产者配置的属性选择丢弃或退回给生产者。
  * 9、关闭信道。
  * 10、关闭连接。
+ */
+
+/**
+ * 消费者消费消息
+ * 1、消费者连接到RabbitMQ Broker建立一个连接（Connection）并开启一个信道（Channel）
+ * 2、消费者向RabbitMQ Broker请求相应队列中的消息并设置相应的回调函数。
+ * 3、等待RabbitMQ Broker回应并投递相应队列中的消息，消费者接收消息。
+ * 4、消费者确认接收到的消息。
+ * 5、RabbitMQ删除队列中已经被确认的消息。
+ * 6、关闭信道。
+ * 7、关闭连接。
+ */
+
+/**
+ * TTL
+ *
  */

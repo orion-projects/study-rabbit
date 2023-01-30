@@ -13,6 +13,8 @@ import java.util.Map;
  *      BindingKey和RoutingKey为一个点号“.”分隔的字符串(被点号“.”分隔开的每一段
  *      独立的字符串称为一个单词)。BindingKey中使用“*”和“#”进行模糊匹配，“*”用于
  *      匹配一个单词，“#”用于匹配零个或多个单词。
+ * 4、headers
+ *      headers交换机根据发送的消息内容中的headers属性进行匹配。
  */
 public class StudyExchange {
 
@@ -25,6 +27,11 @@ public class StudyExchange {
      *                   绑定的队列或交换机都解绑。
      * @param internal 是否内置。内置的交换机客户端程序无法直接发送消息到此交换机，只能通过交换机到交换机的方式。
      * @param arguments 结构化参数。
+     *                  1、alternate-exchange
+     *                  备份交换机，value为备份交换机的名称。如果消息未找到匹配的队列则转发到备份交换机，消息被重新发送到备份交换机时RoutingKey
+     *                  和生产者发送的路由键是一样的。
+     *                  如果备份交换机和mandatory参数一起使用，那么mandatory参数无效。
+     *
      */
     public static void exchangeDeclare(String exchange, String type, boolean durable, boolean autoDelete, boolean internal, Map<String, Object> arguments){
         var channel = StudyChannel.getInstance();

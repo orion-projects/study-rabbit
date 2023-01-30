@@ -2,6 +2,9 @@ package org.example.basic;
 
 import java.util.Map;
 
+/**
+ * 不仅可以将队列和交换机进行绑定，也可以将交换机和交换机进行绑定。
+ */
 public class StudyBind {
     /**
      * 将队列与交换机绑定。
@@ -69,10 +72,12 @@ public class StudyBind {
 
     /**
      * 将交换机与交换机进行绑定，绑定完成前返回。
-     * @param destination
-     * @param source
-     * @param routingKey
-     * @param arguments
+     * 生产者将消息发送到source交换机中，交换机source根据RoutingKey匹配destination交换机
+     * 并把消息转发到destination中，进而存在destination绑定的队列中。
+     * @param destination 目的交换机。
+     * @param source 源交换机。
+     * @param routingKey 路由键。
+     * @param arguments 一些参数。
      */
     public static void exchangeBindNoWait(String destination, String source, String routingKey, Map<String, Object> arguments){
         var channel = StudyChannel.getInstance();
