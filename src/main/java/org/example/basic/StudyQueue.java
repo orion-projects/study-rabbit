@@ -24,11 +24,25 @@ public class StudyQueue {
      *                  1、x-message-ttl
      *                      设置消息的TTL（过期时间），单位是毫秒。
      *                  2、x-expires
+     *                      设置队列的TTL（过期时间），单位毫秒。如果队列再指定的时间未被使用就会被删除。
+     *                      未使用是指队列没有任何消费者、队列没有被重新声明并且在过期时间段内也未调用过Basic.Get命令。
      *                  3、x-max-length
+     *                      设置队列可以容纳的消息最大条数，超过这个条数队列头部的消息将会被丢弃。
      *                  4、x-max-length-bytes
+     *                      设置队列可以容纳的消息的最大字节数，超过这个字节数队列头部的消息将会被丢弃。
      *                  5、x-dead-letter-exchange
+     *                      设置队列的死信交换机。
      *                  6、x-dead-letter-routing-key
+     *                      设置死信的RoutingKey，如果没有指定，则使用原RoutingKey。
      *                  7、x-max-priority
+     *                      设置队列中消息的优先级最大值。如果没有设置该参数，那么该队列不支持消息优先级功能。
+     *                      如果消费者的消费速度大于生产者的速度且Broker中没有消息堆积的情况下，对发送的消息设置优先级没有实际意义。
+     *                  8、x-overflow
+     *                      设置队列消息溢出时，如何处理这些消息。
+     *                      1、drop-head：丢弃队列头部的消息，默认值。
+     *                      2、reject-publish：拒绝接收生产者发送过来的所有消息。
+     *                  9、x-queue-mode
+     *
      */
     public static void queueDeclare(String queue, boolean durable, boolean exclusive, boolean autoDelete, Map<String, Object> arguments){
         var channel = StudyChannel.getInstance();
